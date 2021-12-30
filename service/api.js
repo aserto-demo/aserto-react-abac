@@ -5,9 +5,9 @@ const { displayStateMap, jwtAuthz } = require("express-jwt-aserto");
 const jwksRsa = require("jwks-rsa");
 const cors = require("cors");
 const app = express();
-const router = express.Router();
+// const router = express.Router();
 const isNetlify = process.env.REACT_APP_NETLIFY;
-const routerBasePath = isNetlify ? '/.netlify/functions/api-server' : '/';
+// const routerBasePath = isNetlify ? '/.netlify/functions/api-server' : '/';
 
 const { updateUser, getUsers, getUser } = require("./directory");
 
@@ -44,10 +44,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS
 app.use(cors());
-router.use(displayStateMap(authzOptions));
+app.use(displayStateMap(authzOptions));
 
 
-router.post("/api/update/user", async function (req, res) {
+app.post("/api/update/user", async function (req, res) {
   const { email, key, value } = req.body
   const user = users.find(u => u.email === email)
   await updateUser(req, user.id, { key, value })
@@ -55,16 +55,16 @@ router.post("/api/update/user", async function (req, res) {
   res.json({ success: true, user: updatedUser })
 })
 
-router.get("/api/projects/red", checkJwt, checkAuthz, async function (req, res) {
+app.get("/api/projects/red", checkJwt, checkAuthz, async function (req, res) {
   res.json({ secretMessage: `Here is a secret about Project Red!` });
 })
 
-router.get("/api/projects/blue", checkJwt, checkAuthz, async function (req, res) {
+app.get("/api/projects/blue", checkJwt, checkAuthz, async function (req, res) {
   res.json({ secretMessage: `Here is a secret about Project Blue!` });
 })
 
 
-router.get("/api/user", async (req, res) => {
+app.get("/api/user", async (req, res) => {
   const { email } = req.body
   const user = users.find(u => u.email === email)
   if (user) {
@@ -74,7 +74,7 @@ router.get("/api/user", async (req, res) => {
   }
 })
 
-app.use(routerBasePath, router);
+// app.use(routerBasePath, router);
 
 // Launch the API Server at localhost:8080
 async function main() {
