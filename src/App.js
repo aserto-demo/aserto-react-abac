@@ -56,6 +56,7 @@ const projects = [
 const apiOrigin = process.env.NETLIFY ? `${process.env.URL}/.netlify/functions/api-server` : process.env.REACT_APP_API_ORIGIN
 
 function App() {
+  console.log("NETLIFY", process.env.NETLIFY)
   const auth = useAuth();
   const [message, setMessage] = useState(false)
   const [location, setLocation] = useState()
