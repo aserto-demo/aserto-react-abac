@@ -39,6 +39,12 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
+const loadUsers = async (req, res, next) => {
+  if (users.length === 0) {
+    users = await getUsers()
+  }
+}
+app.use(loadUsers)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -83,15 +89,8 @@ async function main() {
 }
 
 if (isNetlify) {
-  // const serverless = require("serverless-http");
-  // // users = await getUsers()
-  // exports.handler = serverless(app);
-
-  (async () => {
-    const serverless = require("serverless-http");
-    users = await getUsers()
-    exports.handler = serverless(app);
-  })();
+  const serverless = require("serverless-http");
+  exports.handler = serverless(app)
 } else {
   main()
 }
