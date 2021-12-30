@@ -44,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Enable CORS
 app.use(cors());
-app.use(displayStateMap(authzOptions));
+router.use(displayStateMap(authzOptions));
 
 
 router.post("/api/update/user", async function (req, res) {
