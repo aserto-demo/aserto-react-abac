@@ -98,6 +98,7 @@ function App() {
       setMessage(false)
       const accessToken = auth.userData?.id_token
       const updateUserURL = `${apiOrigin}/api/update/user`;
+      console.log("updateUserURL", updateUserURL, apiOrigin)
       await fetch(updateUserURL, {
         updateUserURL,
         method: 'POST',
