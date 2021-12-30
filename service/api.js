@@ -82,6 +82,9 @@ async function main() {
   app.listen(8080)
 }
 
+users = (async () => { await getUsers() })();
+console.log(users)
+
 if (isNetlify) {
   const serverless = require("serverless-http");
   // users = await getUsers()

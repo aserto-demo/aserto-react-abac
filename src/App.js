@@ -122,7 +122,7 @@ function App() {
 
         if (token) {
           await init({
-            serviceUrl: 'http://localhost:8080',
+            serviceUrl: apiOrigin,
             accessToken: token,
             policyRoot: 'policyabac',
             throwOnError: false
