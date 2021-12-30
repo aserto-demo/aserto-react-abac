@@ -46,10 +46,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 router.use(displayStateMap(authzOptions));
 
-
-router.post("/api/update/user", async function (req, res) {
+router.post("/api/update/user", checkJwt, async function (req, res) {
   const { email, key, value } = req.body
-  users = await getUsers()
+  // users = await getUsers()
   const user = users.find(u => u.email === email)
   await updateUser(req, user.id, { key, value })
   const updatedUser = await getUser(user.id)
@@ -84,15 +83,15 @@ async function main() {
 }
 
 if (isNetlify) {
-  const serverless = require("serverless-http");
-  // users = await getUsers()
-  exports.handler = serverless(app);
+  // const serverless = require("serverless-http");
+  // // users = await getUsers()
+  // exports.handler = serverless(app);
 
-  // (async () => {
-  //   const serverless = require("serverless-http");
-  //   users = await getUsers()
-  //   exports.handler = serverless(app);
-  // })();
+  (async () => {
+    const serverless = require("serverless-http");
+    users = await getUsers()
+    exports.handler = serverless(app);
+  })();
 } else {
   main()
 }
