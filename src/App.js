@@ -53,6 +53,8 @@ const projects = [
   }
 ]
 
+const apiOrigin = process.env.NETLIFY ? `${process.env.URL}/.netlify/functions/api-server` : process.env.REACT_APP_API_ORIGIN
+
 function App() {
   const auth = useAuth();
   const [message, setMessage] = useState(false)
@@ -68,7 +70,7 @@ function App() {
     try {
       if (!auth.isLoading) {
         const accessToken = auth.userData?.id_token
-        const sensitiveInformationURL = `${process.env.REACT_APP_API_ORIGIN}/api/projects/${projectId}`;
+        const sensitiveInformationURL = `${apiOrigin}/api/projects/${projectId}`;
         const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -94,7 +96,7 @@ function App() {
     try {
       setMessage(false)
       const accessToken = auth.userData?.id_token
-      const updateUserURL = `${process.env.REACT_APP_API_ORIGIN}/api/update/user`;
+      const updateUserURL = `${apiOrigin}/api/update/user`;
       await fetch(updateUserURL, {
         updateUserURL,
         method: 'POST',
