@@ -53,7 +53,7 @@ const projects = [
   }
 ]
 
-const apiOrigin = process.env.REACT_APP_NETLIFY ? `/.netlify/functions/api` : process.env.REACT_APP_API_ORIGIN
+const apiOrigin = process.env.REACT_APP_NETLIFY ? `/.netlify/functions/api-server` : process.env.REACT_APP_API_ORIGIN
 
 function App() {
   console.log("NETLIFY", process.env.REACT_APP_NETLIFY, process.env, process.env.URL)
@@ -97,7 +97,7 @@ function App() {
     try {
       setMessage(false)
       const accessToken = auth.userData?.id_token
-      const updateUserURL = `${apiOrigin}/update/user`;
+      const updateUserURL = `${apiOrigin}/api/update/user`;
       console.log("updateUserURL", updateUserURL, apiOrigin)
       await fetch(updateUserURL, {
         updateUserURL,
