@@ -49,6 +49,7 @@ app.use(displayStateMap(authzOptions));
 
 router.post("/api/update/user", async function (req, res) {
   const { email, key, value } = req.body
+  users = await getUsers()
   const user = users.find(u => u.email === email)
   await updateUser(req, user.id, { key, value })
   const updatedUser = await getUser(user.id)
