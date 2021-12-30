@@ -158,7 +158,7 @@ function App() {
 
     setTimeInTimezone(new Date().toLocaleString('en-US', options))
     setLocation(e.value)
-    reload()
+    // reload()
 
   }
 
@@ -169,13 +169,13 @@ function App() {
   const onDeviceChange = (e) => {
     updateUser('device', e.value)
     setDevice(e.value)
-    reload()
+    // reload()
   }
 
   const onProjectChange = (e) => {
     updateUser('project', e.value)
     setProject(e.value)
-    reload()
+    // reload()
   }
 
   // const displayStateMapApiProjectRed = (loading || asertoError) ? { visible: false, enabled: false } : getDisplayState("GET", "/api/projects/red");
