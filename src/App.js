@@ -135,7 +135,7 @@ function App() {
       }
     }
     if (!asertoError && isAuthenticated) {
-      // initAserto();
+      initAserto();
     }
 
     if (!loading && !isAuthenticated) {

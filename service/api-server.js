@@ -87,6 +87,12 @@ if (isNetlify) {
   const serverless = require("serverless-http");
   // users = await getUsers()
   exports.handler = serverless(app);
+
+  // (async () => {
+  //   const serverless = require("serverless-http");
+  //   users = await getUsers()
+  //   exports.handler = serverless(app);
+  // })();
 } else {
   main()
 }
