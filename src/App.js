@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState, useCallback } from "react";
 import { useAuth } from 'oidc-react';
-import { useAserto } from '@aserto/aserto-react'
+// import { useAserto } from '@aserto/aserto-react'
 import Select from 'react-select'
 
 const locations = [
@@ -63,35 +63,35 @@ function App() {
   const [project, setProject] = useState()
   const [device, setDevice] = useState()
   const [timeInTimezone, setTimeInTimezone] = useState()
-  const [user, setUser] = useState()
+  // const [user, setUser] = useState()
   // const { init, loading, getDisplayState, error: asertoError, reload } = useAserto();
   const isAuthenticated = auth.userData?.id_token ? true : false
 
-  const accessSensitiveInformation = useCallback(async (projectId) => {
-    try {
-      if (!auth.isLoading) {
-        const accessToken = auth.userData?.id_token
-        const sensitiveInformationURL = `${apiOrigin}/api/projects/${projectId}`;
-        const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+  // const accessSensitiveInformation = useCallback(async (projectId) => {
+  //   try {
+  //     if (!auth.isLoading) {
+  //       const accessToken = auth.userData?.id_token
+  //       const sensitiveInformationURL = `${apiOrigin}/api/projects/${projectId}`;
+  //       const sensitiveDataResponse = await fetch(sensitiveInformationURL, {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
 
-        try {
-          const res = await sensitiveDataResponse.json();
-          setMessage(res.secretMessage)
-        } catch (e) {
-          //In case no access is given, the response will return 403 and not return a JSON response
-          setMessage(sensitiveDataResponse.status)
-        }
-      }
+  //       try {
+  //         const res = await sensitiveDataResponse.json();
+  //         setMessage(res.secretMessage)
+  //       } catch (e) {
+  //         //In case no access is given, the response will return 403 and not return a JSON response
+  //         setMessage(sensitiveDataResponse.status)
+  //       }
+  //     }
 
-    } catch (e) {
-      console.log(e.message);
-    }
+  //   } catch (e) {
+  //     console.log(e.message);
+  //   }
 
-  }, [auth.isLoading, auth.userData?.id_token])
+  // }, [auth.isLoading, auth.userData?.id_token])
 
   const updateUser = useCallback(async (key, value) => {
     try {
@@ -141,7 +141,7 @@ function App() {
     //   auth.signIn()
     // }
 
-    setUser(auth.userData?.profile)
+    // setUser(auth.userData?.profile)
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, auth.userData?.id_token, auth.isLoading]);
