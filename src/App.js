@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState, useCallback } from "react";
 import { useAuth } from 'oidc-react';
-// import { useAserto } from '@aserto/aserto-react'
+import { useAserto } from '@aserto/aserto-react'
 import Select from 'react-select'
 
 const locations = [
