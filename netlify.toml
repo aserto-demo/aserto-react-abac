@@ -5,3 +5,16 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[template.environment]
+  REACT_APP_POLICY_ROOT = "Policy root"
+  POLICY_ID = "Policy ID"
+  TENANT_ID = "Aserto tenant ID"
+  AUTHORIZER_API_KEY = "Aserto authorizer API key"
+  REACT_APP_NETLIFY = "Netlify flag must be set to NETLIFY"
+  REACT_APP_DEX_DOMAIN= "Aserto Demo Domain (acmecorp.demo.aserto.com)"
+  REACT_APP_DEX_CLIENT_ID= "Demo Client ID (acmecorp-app)"
+  REACT_APP_DEX_AUDIENCE= "Demo Audience (acmecorp-app)"
+  JWKS_URI= "https://acmecorp.demo.aserto.com/dex/keys"
+  ISSUER= "https://acmecorp.demo.aserto.com/dex"
+  AUDIENCE= "acmecorp-app"
