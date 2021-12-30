@@ -43,6 +43,7 @@ const loadUsers = async (req, res, next) => {
   if (users.length === 0) {
     users = await getUsers()
   }
+  next()
 }
 app.use(loadUsers)
 app.use(express.json());
