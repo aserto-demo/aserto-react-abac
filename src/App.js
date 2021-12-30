@@ -64,7 +64,7 @@ function App() {
   const [device, setDevice] = useState()
   const [timeInTimezone, setTimeInTimezone] = useState()
   const [user, setUser] = useState()
-  const { init, loading, getDisplayState, error: asertoError, reload } = useAserto();
+  // const { init, loading, getDisplayState, error: asertoError, reload } = useAserto();
   const isAuthenticated = auth.userData?.id_token ? true : false
 
   const accessSensitiveInformation = useCallback(async (projectId) => {
@@ -117,29 +117,29 @@ function App() {
   }, [auth.userData?.id_token, auth.userData?.profile.email])
 
   useEffect(() => {
-    async function initAserto() {
-      try {
-        const token = auth.userData?.id_token
+    // async function initAserto() {
+    //   try {
+    //     const token = auth.userData?.id_token
 
-        if (token) {
-          await init({
-            serviceUrl: apiOrigin,
-            accessToken: token,
-            policyRoot: 'policyabac',
-            throwOnError: false
-          });
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    if (!asertoError && isAuthenticated) {
-      initAserto();
-    }
+    //     if (token) {
+    //       await init({
+    //         serviceUrl: apiOrigin,
+    //         accessToken: token,
+    //         policyRoot: 'policyabac',
+    //         throwOnError: false
+    //       });
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    // if (!asertoError && isAuthenticated) {
+    //   // initAserto();
+    // }
 
-    if (!loading && !isAuthenticated) {
-      auth.signIn()
-    }
+    // if (!loading && !isAuthenticated) {
+    //   auth.signIn()
+    // }
 
     setUser(auth.userData?.profile)
 
@@ -162,9 +162,9 @@ function App() {
 
   }
 
-  if (asertoError) {
-    return <div><h1>Error encountered</h1><p>{asertoError}</p></div>;
-  }
+  // if (asertoError) {
+  //   return <div><h1>Error encountered</h1><p>{asertoError}</p></div>;
+  // }
 
   const onDeviceChange = (e) => {
     updateUser('device', e.value)
@@ -178,9 +178,9 @@ function App() {
     reload()
   }
 
-  const displayStateMapApiProjectRed = (loading || asertoError) ? { visible: false, enabled: false } : getDisplayState("GET", "/api/projects/red");
-  const displayStateMapApiProjectBlue = (loading || asertoError) ? { visible: false, enabled: false } : getDisplayState("GET", "/api/projects/blue");
-
+  // const displayStateMapApiProjectRed = (loading || asertoError) ? { visible: false, enabled: false } : getDisplayState("GET", "/api/projects/red");
+  // const displayStateMapApiProjectBlue = (loading || asertoError) ? { visible: false, enabled: false } : getDisplayState("GET", "/api/projects/blue");
+  const loading = false;
   return (
     <div className="container">
       <div className="header">
@@ -213,12 +213,12 @@ function App() {
               <div>
                 <div className="center-main">
 
-                  {displayStateMapApiProjectRed?.visible && <div>
+                  {/* {displayStateMapApiProjectRed?.visible && <div>
                     <button className="primary-button" disabled={!displayStateMapApiProjectRed?.enabled} onClick={() => accessSensitiveInformation('red')}>Get Project Red Secret </button>
                   </div>}
                   {displayStateMapApiProjectBlue?.visible && <div>
                     <button className="primary-button" disabled={!displayStateMapApiProjectBlue?.enabled} onClick={() => accessSensitiveInformation('blue')}>Get Project Blue Secret</button>
-                  </div>}
+                  </div>} */}
                 </div>
                 <div className="message-container">
                   {message && message !== 403 &&
@@ -267,8 +267,8 @@ function App() {
                 </div>
               </div>
               <div className="timezone">
-                <div>{displayStateMapApiProjectRed?.visible && `${user?.email} is assigned to Project Red`}</div>
-                <div>{displayStateMapApiProjectBlue?.visible && `${user?.email} is assigned to Project Blue`}</div>
+                {/* <div>{displayStateMapApiProjectRed?.visible && `${user?.email} is assigned to Project Red`}</div>
+                <div>{displayStateMapApiProjectBlue?.visible && `${user?.email} is assigned to Project Blue`}</div> */}
                 <div>{timeInTimezone && `Time in selected timezone: ${timeInTimezone}`}</div>
               </div>
             </div>
