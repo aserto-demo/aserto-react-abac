@@ -5,15 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "oidc-react";
 import { AsertoProvider } from "@aserto/aserto-react";
+import config from './config'
 
 const configuration = {
-  authority: `https://${process.env.REACT_APP_OIDC_DOMAIN}/dex`,
-  clientId: process.env.REACT_APP_OIDC_CLIENT_ID,
+  authority: `https://${config.REACT_APP_OIDC_DOMAIN}/dex`,
+  clientId: config.REACT_APP_OIDC_CLIENT_ID,
   autoSignIn: true,
   responseType: "id_token",
   scope: "openid profile email",
   redirectUri: window.location.origin,
-  audience: process.env.REACT_APP_OIDC_AUDIENCE,
+  audience: config.REACT_APP_OIDC_AUDIENCE,
   onSignIn: () => {
     window.location.replace(window.location.origin);
   },

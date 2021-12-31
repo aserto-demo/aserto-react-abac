@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useAuth } from 'oidc-react';
 import { useAserto } from '@aserto/aserto-react'
 import Select from 'react-select'
+import { policyRoot } from './config'
 
 const locations = [
   {
@@ -126,7 +127,7 @@ function App() {
           await init({
             serviceUrl: apiOrigin,
             accessToken: token,
-            policyRoot: 'policyabac',
+            policyRoot: policyRoot,
             throwOnError: false
           });
         }

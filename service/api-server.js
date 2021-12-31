@@ -4,6 +4,7 @@ const jwt = require("express-jwt");
 const { displayStateMap, jwtAuthz } = require("express-jwt-aserto");
 const jwksRsa = require("jwks-rsa");
 const cors = require("cors");
+const config = require("./config")
 const app = express();
 const router = express.Router();
 const isNetlify = process.env.REACT_APP_NETLIFY;
@@ -22,7 +23,7 @@ const authzOptions = {
 //Aserto authorizer middleware function
 const checkAuthz = jwtAuthz(authzOptions);
 
-let users = []
+
 
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint
@@ -30,22 +31,23 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: process.env.JWKS_URI,
+    jwksUri: config.JWKS_URI,
   }),
 
   // Validate the audience and the issuer
-  audience: process.env.AUDIENCE,
-  issuer: process.env.ISSUER,
+  audience: config.AUDIENCE,
+  issuer: config.ISSUER,
   algorithms: ["RS256"],
 });
 
+let users = []
 const loadUsers = async (req, res, next) => {
   if (users.length === 0) {
     users = await getUsers()
   }
   next()
 }
-app.use(loadUsers)
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -53,9 +55,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 router.use(displayStateMap(authzOptions));
 
-router.post("/api/update/user", checkJwt, async function (req, res) {
+router.post("/api/update/user", loadUsers, checkJwt, async function (req, res) {
   const { email, key, value } = req.body
-  // users = await getUsers()
   const user = users.find(u => u.email === email)
   await updateUser(req, user.id, { key, value })
   const updatedUser = await getUser(user.id)
